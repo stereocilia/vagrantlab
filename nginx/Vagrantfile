@@ -1,0 +1,22 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# Simple nginx server on ubuntu with nodejs, grunt, and bower
+
+Vagrant.configure(2) do |config|
+
+  config.vm.box = "ubuntu/trusty64"
+  config.vm.network "forwarded_port", guest: 80, host: 8080
+  config.vm.synced_folder ".", "/home/vagrant/www/html", create:true
+  config.ssh.forward_agent = true
+  config.vm.provision "shell", inline: <<-SHELL
+
+    apt-get install -y nginx
+
+    cp /home/vagrant/www/html/config/nginx/sites-available/vagrant /etc/nginx/sites-available/
+    ln -s /etc/nginx/sites-available/vagrant /etc/nginx/sites-enabled/
+    rm /etc/nginx/sites-enabled/default
+    nginx -s reload
+
+  SHELL
+end
