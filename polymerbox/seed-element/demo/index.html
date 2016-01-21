@@ -1,0 +1,82 @@
+<!doctype html>
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+    <title>seed-element Demo</title>
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <link rel="import" href="../seed-element.html">
+    <style>
+      body {
+        background-color: darkviolet;
+        color: white;
+        width: 80%;
+        margin: 0 auto;
+      }
+      .code {
+        background-color: gray;display: inline-block; padding: 2px;
+      }
+      .demo-index {
+        background-color: darkviolet;
+        color: white;
+      }
+      .demo-index-inverse {
+        background-color: white;
+        color: darkviolet;
+      }
+
+    </style>
+  </head>
+  <body class="demo-index" unresolved>
+
+    <p>An example of <code>&lt;seed-element&gt;</code>:</p>
+    <p>Everything that has a <code class="code demo-index-inverse"><b>darkviolet</b></code> background
+      is part of the <code class="code">demo/index.html</code> page.
+    </p>
+    <p>
+      Call a method on the <code>seed-element</code> with <code>document.querySelector('seed-element').sayHelloTo('World')</code>
+      and output the return value with <code>alert()</code>.
+      <br>
+      <button id="btnSayhi">Say Hello...</button></p>
+    <p>
+      Call <code>seedElement.triggerSomeEvent()</code> which fires an event internally from the <code>seed-element</code>.
+      We've registered a listener for that event which will print out some details from the event to the console.
+      <br>
+      <button id="btnEvent">Trigger some event</button>
+    </p>
+
+    <seed-element author='{"name": "Sir Mittens", "image": "http://p-hold.com/kitten/200/300"}' fancy>
+      <p>
+        This is the content block of the <code>&lt;seed-element&gt;</code> in <code>demo/index.html</code>
+        It is referenced in the web component as <code>&lt;component&gt;&lt;/component&gt;</code>.
+      </p>
+    </seed-element>
+
+    <script>
+      var seedElement = document.querySelector('seed-element');
+      
+      document.querySelector('#btnSayhi').addEventListener('click', function() {
+        alert(seedElement.sayHelloTo('World'));
+      });
+      
+      document.querySelector('#btnEvent').addEventListener('click', function() {
+        seedElement.triggerSomeEvent();
+      });
+      
+      document.addEventListener("seed-element-something-happened", function(e) {
+        console.log(e.detail.message);
+      });
+      
+    </script>
+
+  </body>
+</html>
